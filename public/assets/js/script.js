@@ -113,3 +113,40 @@ document.getElementById("search-input").addEventListener("keydown", function (ev
         iframe.src = `${__uv$config.prefix}${__uv$config.encodeUrl(url)}`;
     }
 });
+
+function openNivida(url) {
+    let url1 = `${__uv$config.prefix}${__uv$config.encodeUrl(url)}`;
+    var frameWindow = document.getElementById("nvidia-frame");
+    frameWindow.src = url1;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    let nvidiaInstalled = localStorage.getItem('nvidiaInstalled');
+    
+    if (nvidiaInstalled !== null) { 
+        let invidaApp = document.createElement('div');
+        invidaApp.classList.add('app');
+        invidaApp.innerHTML = `
+            <i class="fa-solid fa-gamepad"></i>
+            <h3>NVIDIA</h3>
+            <button>Install</button>
+        `;
+
+        document.getElementById('apps').appendChild(invidaApp);
+
+        invidaApp.querySelector('button').addEventListener('click', function () {
+            localStorage.setItem('nvidiaInstalled', 'true');
+            invidaApp.innerHTML = `
+                <i class="fa-solid fa-gamepad"></i>
+                <h3>NVIDIA</h3>
+                <button>Installed &#10003;</button>
+            `;
+
+            window.location.reload();
+        });
+
+        if (nvidiaInstalled === 'true') {
+            invidaApp.querySelector('button').innerHTML = 'Installed &#10003;';
+        }
+    }
+})
